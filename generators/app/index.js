@@ -36,11 +36,31 @@ module.exports = yeoman.Base.extend({
     this.fs.copy(
       this.templatePath('eslintrc'),
       this.destinationPath('.eslintrc')
-    )
+    );
     this.fs.copy(
       this.templatePath('travis.yml'),
       this.destinationPath('.travis.yml')
-    )
+    );
+    this.fs.copy(
+      this.templatePath('docs'),
+      this.destinationPath('docs')
+    );
+    this.fs.copy(
+      this.templatePath('examples'),
+      this.destinationPath('examples')
+    );
+    this.fs.copy(
+      this.templatePath('src'),
+      this.destinationPath('src')
+    );
+    this.fs.copy(
+      this.templatePath('test'),
+      this.destinationPath('test')
+    );
+    this.fs.copy(
+      this.templatePath('*.js'),
+      this.destinationPath('.')
+    );
     // this.fs.copy(
     //   this.templatePath('webpack.config.js'),
     //   this.destinationPath('webpack.config.js')
@@ -56,6 +76,8 @@ module.exports = yeoman.Base.extend({
   },
 
   install: function () {
-    // this.installDependencies();
+    this.installDependencies({
+      skipInstall: this.options['skip-install']
+    });
   }
 });
