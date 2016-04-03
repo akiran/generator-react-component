@@ -23,12 +23,24 @@ module.exports = yeoman.Base.extend({
   },
 
   writing: function () {
-    var context = _.assign({}, this, {slugify: slugify})
+    var context = _.assign({}, this, {slugify: slugify});
     this.fs.copyTpl(
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),
       context
     );
+    this.fs.copy(
+      this.templatePath('babelrc'),
+      this.destinationPath('.babelrc')
+    );
+    this.fs.copy(
+      this.templatePath('eslintrc'),
+      this.destinationPath('.eslintrc')
+    )
+    this.fs.copy(
+      this.templatePath('travis.yml'),
+      this.destinationPath('.travis.yml')
+    )
     // this.fs.copy(
     //   this.templatePath('webpack.config.js'),
     //   this.destinationPath('webpack.config.js')
