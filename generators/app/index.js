@@ -2,6 +2,8 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var _ = require('lodash');
+var slugify = require("underscore.string/slugify");
 
 module.exports = yeoman.Base.extend({
 
@@ -10,32 +12,38 @@ module.exports = yeoman.Base.extend({
 
     // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the first-rate ' + chalk.red('generator-react-component') + ' generator!'
+      'Welcome to the incredible' + chalk.red('React Component') + ' generator!'
     ));
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'someAnswer',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+    var prompts = [];
 
     this.prompt(prompts, function (props) {
-      this.props = props;
-      // To access props later use this.props.someAnswer;
-
       done();
-    }.bind(this));
+    });
   },
 
   writing: function () {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
+    var context = _.assign({}, this, {slugify: slugify})
+    this.fs.copyTpl(
+      this.templatePath('_package.json'),
+      this.destinationPath('package.json'),
+      context
     );
+    // this.fs.copy(
+    //   this.templatePath('webpack.config.js'),
+    //   this.destinationPath('webpack.config.js')
+    // );
+    // this.fs.copy(
+    //   this.templatePath('gulpfile.js'),
+    //   this.destinationPath('gulpfile.js')
+    // );
+    // this.fs.copy(
+    //   this.templatePath('client/**/*'),
+    //   this.destinationPath('client')
+    // );
   },
 
   install: function () {
-    this.installDependencies();
+    // this.installDependencies();
   }
 });
